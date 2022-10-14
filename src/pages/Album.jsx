@@ -13,7 +13,7 @@ const Album = () => {
     <motion.section className="min-h-[100vh] relative py-4" {...fadeIn}>
       <img
         src={image}
-        className="absolute top-0 left-0 right-0 bottom-0 w-[100%] h-[100%] object-cover opacity-[0.2]"
+        className="absolute top-0 left-0 right-0 bottom-0 w-[100%] h-[100%] object-cover opacity-[0.15]"
       />
 
       {/* ALBUM INFO */}
