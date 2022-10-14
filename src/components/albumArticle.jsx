@@ -2,7 +2,7 @@ import { Heart, More } from "iconsax-react";
 
 const AlbumArticle = ({ image, title, artist, album, duration }) => {
   return (
-    <article className="flex justify-between items-center h-16 z-10 rounded-lg pl-2 bg-gray-700 bg-opacity-30 backdrop-blur-md">
+    <article className="flex justify-between items-center h-16 z-10 rounded-lg pl-2 bg-[#33373b5e] backdrop-blur-md">
       <div className="flex items-center gap-4 flex-[1.5]">
         <img src={image} className="w-12 h-12 rounded-lg" />
         <Heart className="text-primary-yellow hidden md:block" />

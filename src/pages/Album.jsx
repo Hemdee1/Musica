@@ -55,7 +55,7 @@ const Album = () => {
       </div>
 
       {/* ALBUM LIST */}
-      <div className="mt-8 m-4 mr-8 flex flex-col gap-4 bg-primary-dark">
+      <div className="mt-8 m-4 mr-4 sm:mr-8 flex flex-col gap-4 bg-primary-dark">
         {albumList.map((album, index) => (
           <AlbumArticle key={index} {...album} />
         ))}

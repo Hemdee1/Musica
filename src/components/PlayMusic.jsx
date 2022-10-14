@@ -21,7 +21,7 @@ const PlayMusic = () => {
       {/* info */}
       <div className="flex w-[100%] sm:w-[30%] lg:w-[20%]">
         <img
-          src="./images/Rectangle 21.png"
+          src="/images/Rectangle 21.png"
           alt="album cover"
           className="h-14 rounded-xl"
         />
