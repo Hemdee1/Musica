@@ -8,18 +8,18 @@ const RandB = () => {
   return (
     <section className=" ml-4 sm:ml-0 p-8 bg-[#609EAF] rounded-[30px] w-[90%] lg:w-[60%] h-[400px] flex justify-between overflow-hidden relative font-Quicksand">
       <div className="flex flex-col justify-between text-start">
-        <h3 className=" text-md">Currated Playlist</h3>
+        <h3 className=" text-md md:text-xl">Currated Playlist</h3>
 
         <div className="w-[100%] flex flex-col justify-end sm:justify-between h-[60%] z-20">
           <div className="w-[100%] mb-4">
             <h2 className="text-3xl font-extrabold mb-2">R & B Hits</h2>
-            <h3 className="text-sm sm:text-md ">
+            <h3 className="text-sm sm:text-lg ">
               All mine, Lie again, Petty call me everyday,
             </h3>
-            <h3 className="text-sm sm:text-md ">
+            <h3 className="text-sm sm:text-lg">
               Out of time, No love, Bad habit,
             </h3>
-            <h3 className="text-sm sm:text-md ">And so much more.</h3>
+            <h3 className="text-sm sm:text-lg">And so much more.</h3>
           </div>
 
           <div className="flex items-center">

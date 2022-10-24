@@ -1,13 +1,20 @@
-import { Play } from "iconsax-react";
+import { ArrangeVerticalSquare, Play } from "iconsax-react";
+import { Link } from "react-router-dom";
+import { useGlobalContext } from "../context/context";
+const artist = "No artist";
 
-const CollectionArticle = ({ image, title, artist }) => {
+const CollectionArticle = ({ cover, title, id }) => {
+  const { selectMusic } = useGlobalContext();
+
   return (
-    <article className="relative rounded-2xl  overflow-hidden collection">
-      <img
-        src={image}
-        alt="album cover"
-        className="w-[100%] h-[45vh] sm:h-60 sm:w-56 object-cover"
-      />
+    <article className="relative overflow-hidden rounded-2xl collection">
+      <Link to={"/album/" + id}>
+        <img
+          src={cover}
+          alt="album cover"
+          className="w-[100%] h-[45vh] sm:h-60 sm:w-56 object-cover object-top"
+        />
+      </Link>
       <div className="absolute bottom-0 left-0 right-0 pl-4 pb-4 sm:translate-y-[40%] translate-y-0 transition-all cont">
         <h2 className="text-xl font-bold">{title}</h2>
         <h3 className="text-sm text-gray-300">{artist}</h3>
@@ -16,8 +23,12 @@ const CollectionArticle = ({ image, title, artist }) => {
           -
         </div>
       </div>
-      <div className="ml-4 sm:ml-10 cursor-pointer p-2 rounded-full bg-primary-yellow w-10 absolute right-4 bottom-4 sm:opacity-0 opacity-100 icon">
-        <Play variant="Bold" size="24" />
+      <div className="absolute w-10 p-2 ml-4 rounded-full opacity-100 cursor-pointer sm:ml-10 bg-primary-yellow right-4 bottom-4 sm:opacity-0 icon">
+        <Play
+          variant="Bold"
+          size="24"
+          onClick={() => selectMusic("play-1", id)}
+        />
       </div>
     </article>
   );

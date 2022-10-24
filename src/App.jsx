@@ -28,7 +28,7 @@ function App() {
             <Route path="/video" element={<Video />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/home/album/:id" element={<Album />} />
+            <Route path="/album/:id" element={<Album />} />
           </Routes>
         </AnimatePresence>
       </div>

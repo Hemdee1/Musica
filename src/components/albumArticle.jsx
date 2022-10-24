@@ -1,19 +1,42 @@
 import { Heart, More } from "iconsax-react";
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "../context/context";
 
-const AlbumArticle = ({ image, title, artist, album, duration }) => {
+const AlbumArticle = ({ cover, title, artist, id, playId, duration }) => {
+  const { selectMusic, playing } = useGlobalContext();
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (playing.id === id) {
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
+    }
+  }, [playing]);
+
   return (
-    <article className="flex justify-between items-center h-16 z-10 rounded-lg pl-2 bg-[#33373b5e] backdrop-blur-md">
+    <button
+      className={`flex justify-between items-center h-16 z-10 rounded-lg pl-2 bg-[#5152535e] backdrop-blur-md  ${
+        isPlaying ? "text-primary-yellow" : ""
+      }`}
+      onClick={() => selectMusic(id, playId)}
+    >
       <div className="flex items-center gap-4 flex-[1.5]">
-        <img src={image} className="w-12 h-12 rounded-lg" />
+        <img
+          src={cover}
+          className={`w-12 h-12 rounded-lg ${
+            isPlaying ? "border-2 border-primary-yellow" : ""
+          }`}
+        />
         <Heart className="text-primary-yellow hidden md:block" />
       </div>
-      <div className="flex-[4] flex flex-col md:flex-row justify-between md:mr-10">
+      <div className="flex-[4] flex flex-col md:flex-row justify-between items-center md:mr-10">
         <h3 className="text-xs sm:text-sm flex-[1]">
           {title} - {artist}
         </h3>
         <div className="flex-[1]">
           <h3 className="text-xs sm:text-sm text-start md:text-center mt-1 md:mt-0">
-            {album}
+            Single
           </h3>
         </div>
       </div>
@@ -27,7 +50,7 @@ const AlbumArticle = ({ image, title, artist, album, duration }) => {
           className="rotate-90 text-primary-yellow cursor-pointer"
         />
       </div>
-    </article>
+    </button>
   );
 };
 

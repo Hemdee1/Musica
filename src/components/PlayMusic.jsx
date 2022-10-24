@@ -1,6 +1,7 @@
 import {
   Next,
   Play,
+  Pause,
   Previous,
   RepeateOne,
   Shuffle,
@@ -9,62 +10,117 @@ import {
 import { motion } from "framer-motion";
 import { fadeUp } from "../utils/data";
 import { useGlobalContext } from "../context/context";
+import { useEffect, useState } from "react";
 
 const PlayMusic = () => {
-  const { volume, forward, handleChange } = useGlobalContext();
+  const [nowPlaying, setNowPlaying] = useState({});
+  const [audio, setAudio] = useState(null);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState("00");
+
+  const {
+    volume,
+    forward,
+    handleChange,
+    playing,
+    nextMusic,
+    prevMusic,
+    audioRef,
+    isPlaying,
+    handlePlay,
+    isRepeat,
+    isShuffle,
+    handleRepeat,
+    handleShuffle,
+    duration,
+    timer,
+    forwardRef,
+  } = useGlobalContext();
+
+  useEffect(() => {
+    if (playing) {
+      setNowPlaying(playing);
+    }
+  }, [playing]);
+
+  const { artist, title, cover, audio: song } = nowPlaying;
 
   return (
     <motion.section
       className="fixed bottom-0 left-0 w-[100%] h-24 z-40 bg-black bg-opacity-10 backdrop-blur-lg  border-t-[1px] border-gray-500 pl-[3%] lg:pl-[8%] pr-[3%] flex items-center play"
       {...fadeUp}
     >
+      <audio src={song} ref={audioRef} />
       {/* info */}
-      <div className="flex w-[100%] sm:w-[30%] lg:w-[20%]">
+      <div className="flex w-[100%] mb-6 sm:mb-0 sm:w-[30%] lg:w-[20%]">
         <img
-          src="/images/Rectangle 21.png"
+          src={cover}
           alt="album cover"
-          className="h-14 rounded-xl"
+          className="object-cover h-14 w-14 rounded-xl"
         />
-        <div className="ml-4 text-start flex flex-col justify-center">
-          <h2 className="text-md font-extrabold">Call of Duty</h2>
-          <h3 className="text-sm text-gray-400">Zinoleesky</h3>
+        <div className="flex flex-col justify-center ml-4 text-start">
+          <h2 className="font-extrabold text-md">{title}</h2>
+          <h3 className="text-sm text-gray-400">{artist}</h3>
         </div>
       </div>
 
       {/* control */}
       <div className="flex  w-[60%] items-center justify-center flex-col">
-        <div className="flex items-center">
-          <Shuffle
-            variant="Bold"
-            className="ml-10 cursor-pointer hidden sm:block"
-            size="20"
-          />
-          <Previous
-            variant="Bold"
-            className="ml-4 sm:ml-10 cursor-pointer"
-            size="20"
-          />
-          <div className="ml-4 sm:ml-10 cursor-pointer p-2 rounded-full bg-primary-yellow ">
-            <Play variant="Bold" size="20" />
-          </div>
-          <Next
-            variant="Bold"
-            className="ml-4 sm:ml-10 cursor-pointer"
-            size="20"
-          />
-          <RepeateOne
-            variant="Bold"
-            className="ml-10 cursor-pointer hidden sm:block"
-            size="20"
-          />
+        <div className="flex items-center mb-6 sm:mb-0">
+          <button
+            className={`hidden ml-10 sm:block transition-all active:scale-150 ${
+              isShuffle ? "bg-primary-yellow rounded-md p-1 text-black" : ""
+            }`}
+            onClick={handleShuffle}
+          >
+            <Shuffle variant="Bold" size="20" />
+          </button>
+          <button
+            className="ml-4 transition-all sm:ml-10 active:scale-150"
+            onClick={prevMusic}
+          >
+            <Previous variant="Bold" size="20" />
+          </button>
+          <button
+            className="p-2 ml-4 transition-all rounded-full sm:ml-10 bg-primary-yellow active:scale-150 "
+            onClick={handlePlay}
+          >
+            {!isPlaying ? (
+              <Play variant="Bold" size="20" />
+            ) : (
+              <Pause variant="Bold" size="20" />
+            )}
+          </button>
+          <button
+            className="ml-4 transition-all sm:ml-10 active:scale-150"
+            onClick={nextMusic}
+          >
+            <Next variant="Bold" size="20" />
+          </button>
+          <button
+            className={`hidden ml-10 sm:block transition-all active:scale-150 ${
+              isRepeat ? "bg-primary-yellow rounded-md p-1 text-black" : ""
+            }`}
+            onClick={handleRepeat}
+          >
+            <RepeateOne variant="Bold" size="20" />
+          </button>
         </div>
         {/* forward button */}
-        <input
-          type="range"
-          className="mt-4 hidden sm:block"
-          value={forward}
-          onChange={(e) => handleChange(e, "forward")}
-        />
+        <div className="absolute left-0 flex items-center justify-center w-full px-2 mt-4 bottom-1 sm:px-0 sm:w-full sm:relative">
+          <span className="mr-2 text-sm">
+            {timer?.minute}:{timer?.second}
+          </span>
+          <input
+            type="range"
+            value={forward}
+            onChange={(e) => handleChange(e, "forward")}
+            ref={forwardRef}
+          />
+          <span className="text-sm">
+            {duration?.minute}:{duration?.second}
+          </span>
+        </div>
       </div>
 
       {/* volume */}

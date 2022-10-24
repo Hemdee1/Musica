@@ -12,6 +12,11 @@ import { useGlobalContext } from "../context/context";
 const Navbar = () => {
   const { openNav, closeNav } = useGlobalContext();
 
+  const handleLogout = () => {
+    closeNav();
+    console.log("logged out");
+  };
+
   return (
     <>
       {/* hidden sm:flex */}
@@ -26,7 +31,7 @@ const Navbar = () => {
             onClick={closeNav}
             to="home"
             className={({ isActive }) =>
-              ` mb-8 text-white opacity-60 flex ${
+              ` mb-8 text-white flex ${
                 isActive ? "text-primary-yellow opacity-100" : ""
               }`
             }
@@ -39,7 +44,7 @@ const Navbar = () => {
             onClick={closeNav}
             to="music"
             className={({ isActive }) =>
-              ` mb-8 text-white opacity-60 flex ${
+              ` mb-8 text-white flex ${
                 isActive ? "text-primary-yellow opacity-100" : ""
               }`
             }
@@ -52,7 +57,7 @@ const Navbar = () => {
             onClick={closeNav}
             to="radio"
             className={({ isActive }) =>
-              ` mb-8 text-white opacity-60 flex ${
+              ` mb-8 text-white flex ${
                 isActive ? "text-primary-yellow opacity-100" : ""
               }`
             }
@@ -65,7 +70,7 @@ const Navbar = () => {
             onClick={closeNav}
             to="video"
             className={({ isActive }) =>
-              ` mb-8 text-white opacity-60 flex ${
+              ` mb-8 text-white flex ${
                 isActive ? "text-primary-yellow opacity-100" : ""
               }`
             }
@@ -81,7 +86,7 @@ const Navbar = () => {
             onClick={closeNav}
             to="profile"
             className={({ isActive }) =>
-              ` mb-8 text-white opacity-60 flex ${
+              ` mb-8 text-white flex ${
                 isActive ? "text-primary-yellow opacity-100" : ""
               }`
             }
@@ -90,18 +95,10 @@ const Navbar = () => {
             <h1 className="font-bold ml-8 sm:hidden">Profile</h1>
           </NavLink>
 
-          <NavLink
-            onClick={closeNav}
-            to="logout"
-            className={({ isActive }) =>
-              ` mb-8 text-white opacity-60 flex ${
-                isActive ? "text-primary-yellow opacity-100" : ""
-              }`
-            }
-          >
+          <button onClick={handleLogout} className=" mb-8 text-white flex ">
             <LogoutCurve variant="Bold" size="27" className=" rotate-180" />
             <h1 className="font-bold ml-8 sm:hidden">Logout</h1>
-          </NavLink>
+          </button>
         </div>
       </nav>
     </>

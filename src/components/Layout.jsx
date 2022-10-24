@@ -1,6 +1,7 @@
 import Header from "./header";
 import Navbar from "./Navbar";
 import PlayMusic from "./PlayMusic";
+import Search from "./Search";
 
 const Layout = ({ openNav, setOpenNav }) => {
   return (
@@ -8,6 +9,7 @@ const Layout = ({ openNav, setOpenNav }) => {
       <Navbar />
       <Header />
       <PlayMusic />
+      <Search />
     </>
   );
 };
