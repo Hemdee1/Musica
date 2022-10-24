@@ -33,8 +33,8 @@ const AppProvider = ({ children }) => {
 
   const fetchData = async (type) => {
     try {
-      // const res = await fetch("https://musica-api.up.railway.app/" + type);
-      const res = await fetch("http://localhost:3000/" + type);
+      const res = await fetch("https://musica-api.up.railway.app/" + type);
+      // const res = await fetch("http://localhost:3000/" + type);
       const data = await res.json();
 
       if (res.ok) {
