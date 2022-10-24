@@ -68,7 +68,7 @@ const AppProvider = ({ children }) => {
     setTimeout(() => {
       audioRef.current.play();
       setIsPlaying(true);
-    }, 300);
+    }, 500);
   };
 
   // FOR NEXT BUTTON
@@ -200,7 +200,6 @@ const AppProvider = ({ children }) => {
   // FOR VOLUME AND FORWARD
   const [forward, setForward] = useState(0);
   const [volume, setVolume] = useState(100);
-  const [duration, setDuration] = useState({});
   const [timer, setTimer] = useState({});
   const forwardRef = useRef();
 
@@ -223,31 +222,43 @@ const AppProvider = ({ children }) => {
 
   // function for updating the forward range
   const updateRange = (value) => {
-    const currentTime = Math.floor(audioRef.current.currentTime);
-    const minute = Math.floor(currentTime / 60);
-    let second = Math.floor(currentTime % 60);
-    if (second < 10) second = "0" + second;
+    setTimeout(() => {
+      //
+      const currentTime = Math.floor(audioRef.current.currentTime);
+      const minute = Math.floor(currentTime / 60);
+      let second = Math.floor(currentTime % 60);
+      if (second < 10) second = "0" + second;
 
-    setTimer({ minute, second });
+      setTimer({ minute, second });
 
-    const duration = Math.floor(audioRef.current.duration);
+      const duration = Math.floor(audioRef.current.duration);
 
-    if (!value) {
-      value = Math.floor((currentTime / duration) * 100);
+      if (!value) {
+        value = Math.floor((currentTime / duration) * 100);
+
+        forwardRef.current.style.backgroundSize = value + "% 100%";
+        setForward(value ? value : 0);
+      } else {
+        audioRef.current.currentTime = (value / 100) * duration;
+      }
 
       forwardRef.current.style.backgroundSize = value + "% 100%";
       setForward(value ? value : 0);
-    } else {
-      audioRef.current.currentTime = (value / 100) * duration;
-    }
 
-    forwardRef.current.style.backgroundSize = value + "% 100%";
-    setForward(value ? value : 0);
-
-    if (currentTime === duration) {
-      updateNextSong();
-    }
+      if (currentTime === duration) {
+        updateNextSong();
+      }
+      //
+    }, 300);
   };
+
+  const [currentTime, setCurrentTime] = useState();
+
+  useEffect(() => {
+    setCurrentTime(audioRef.current?.readyState);
+  }, [audioRef.current?.readyState]);
+
+  console.log(currentTime);
 
   // handling volume and forward change
   const handleChange = (e, active) => {
@@ -274,16 +285,16 @@ const AppProvider = ({ children }) => {
   }, [isPlaying, audioRef.current?.currentTime]);
 
   // update duration when mount
-  useEffect(() => {
-    setTimeout(() => {
-      const duration = audioRef.current.duration;
-      const minute = Math.floor(duration / 60);
-      let second = Math.floor(duration % 60);
-      if (second < 10) second = "0" + second;
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     const duration = audioRef.current.duration;
+  //     const minute = Math.floor(duration / 60);
+  //     let second = Math.floor(duration % 60);
+  //     if (second < 10) second = "0" + second;
 
-      setDuration({ minute, second });
-    }, 300);
-  }, [playing]);
+  //     setDuration({ minute, second });
+  //   }, 300);
+  // }, [playing]);
 
   // FOR COLLECTIONS
   const prevCol = JSON.parse(localStorage.getItem("my-collection"));
@@ -371,7 +382,6 @@ const AppProvider = ({ children }) => {
         playlists,
         selectMusic,
         forwardRef,
-        duration,
         timer,
         collection,
         likes,

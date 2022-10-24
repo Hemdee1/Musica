@@ -44,7 +44,7 @@ const ChartArticle = ({ data }) => {
         <Link to={"/album/" + id} className="font-medium text-md">
           {title}
         </Link>
-        <p className="text-xs text-gray-400">{info.slice(0, 45)}...</p>
+        <p className="text-xs text-gray-400">{info.slice(0, 35)}...</p>
         <h3 className="mt-2 text-sm lg:mt-0">
           {totalMin}: {totalSec}
         </h3>

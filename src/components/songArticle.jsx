@@ -6,7 +6,7 @@ const SongArticle = ({ cover, title, artist, id }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    if (playing.id === id) {
+    if (playing?.id === id) {
       setIsPlaying(true);
     } else {
       setIsPlaying(false);
@@ -15,13 +15,13 @@ const SongArticle = ({ cover, title, artist, id }) => {
 
   return (
     <article
-      className="min-w-[10rem] text-start cursor-pointer"
+      className="min-w-[9rem] text-start cursor-pointer"
       onClick={() => selectMusic(id)}
     >
       <img
         src={cover}
         alt=""
-        className={`w-[100%]  h-40 object-cover rounded-3xl transition-all ${
+        className={`w-[100%]  h-36 object-cover rounded-3xl transition-all ${
           isPlaying ? "border-4 border-primary-yellow" : ""
         }`}
       />

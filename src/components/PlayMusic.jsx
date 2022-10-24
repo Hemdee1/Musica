@@ -14,9 +14,6 @@ import { useEffect, useState } from "react";
 
 const PlayMusic = () => {
   const [nowPlaying, setNowPlaying] = useState({});
-  const [audio, setAudio] = useState(null);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState("00");
 
   const {
     volume,
@@ -32,7 +29,6 @@ const PlayMusic = () => {
     isShuffle,
     handleRepeat,
     handleShuffle,
-    duration,
     timer,
     forwardRef,
   } = useGlobalContext();
@@ -43,7 +39,7 @@ const PlayMusic = () => {
     }
   }, [playing]);
 
-  const { artist, title, cover, audio: song } = nowPlaying;
+  const { artist, title, cover, audio: song, duration } = nowPlaying;
 
   return (
     <motion.section
@@ -117,9 +113,7 @@ const PlayMusic = () => {
             onChange={(e) => handleChange(e, "forward")}
             ref={forwardRef}
           />
-          <span className="text-sm">
-            {duration?.minute}:{duration?.second}
-          </span>
+          <span className="text-sm">{duration}</span>
         </div>
       </div>
 
