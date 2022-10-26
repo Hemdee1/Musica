@@ -71,8 +71,15 @@ const AppProvider = ({ children }) => {
     }, 500);
   };
 
+  const resetPlaybar = () => {
+    forwardRef.current.style.backgroundSize = "0% 100%";
+    setForward(0);
+  };
+
   // FOR NEXT BUTTON
   const nextMusic = () => {
+    resetPlaybar();
+
     if (isShuffle) {
       const random = Math.floor(Math.random() * musics.length);
       setPlaying(musics[random]);
@@ -99,6 +106,8 @@ const AppProvider = ({ children }) => {
 
   // FOR PREVIOUS BUTTON
   const prevMusic = () => {
+    resetPlaybar();
+
     if (isShuffle) {
       const random = Math.floor(Math.random() * musics.length);
       setPlaying(musics[random]);
@@ -146,6 +155,8 @@ const AppProvider = ({ children }) => {
 
   // PLAY A MUSIC FROM THE HOMEPAGE
   const selectMusic = (id, playId) => {
+    resetPlaybar();
+
     const [type, tempIndex1] = id.split("-");
     const index = +tempIndex1 - 1;
 
@@ -251,14 +262,6 @@ const AppProvider = ({ children }) => {
       //
     }, 300);
   };
-
-  const [currentTime, setCurrentTime] = useState();
-
-  useEffect(() => {
-    setCurrentTime(audioRef.current?.readyState);
-  }, [audioRef.current?.readyState]);
-
-  console.log(currentTime);
 
   // handling volume and forward change
   const handleChange = (e, active) => {
